@@ -4,8 +4,8 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "predictors.h"
-#include "framework.h"
+#include "../include/predictors.h"
+#include "../include/framework.h"
 
 
 enum State{

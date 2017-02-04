@@ -3,7 +3,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include "framework.h"
+#include "../include/framework.h"
 
 //Increment of arrays
 #define INC 100

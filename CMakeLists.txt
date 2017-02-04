@@ -4,11 +4,11 @@ project(BPAnalysis)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        framework.c
-        framework.h
-        main.c
-        predictors.c
-        predictors.h)
+        src/framework.c
+        include/framework.h
+        src/main.c
+        src/predictors.c
+        include/predictors.h)
 
 message("Extracting trace files... Please wait.")
 #execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzvf ${CMAKE_SOURCE_DIR}/traces/traces.tar.gz

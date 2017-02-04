@@ -4,8 +4,8 @@
 #include <unistd.h>
 #include <ctype.h>
 
-#include "framework.h"
-#include "predictors.h"
+#include "../include/framework.h"
+#include "../include/predictors.h"
 
 #define FILENAME_LENGTH 250
 

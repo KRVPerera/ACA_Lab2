@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     char *predictor_name;
 
     int statistics_advanced = 0;
-    int statistics_basic = 0;
+    int statistics_basic = 1;
     int statistics_score = 0;
     int print_csv = 0;
     

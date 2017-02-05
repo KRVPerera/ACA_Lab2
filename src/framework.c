@@ -290,6 +290,7 @@ void __predictor_printBasicStatistics(int score_only, int csv){
         printf("Predicted Non-Taken: %8lu  %8.4f%%\n", pnt, d_pnt);
         printf("Predicted right:     %8lu  %8.4f%%\n", hits, d_hits);
         printf("Predicted wrong:     %8lu  %8.4f%%\n", miss, d_miss);
+        printf("Miss Pred. rate:     %8lu  %8.4f%%\n", miss, d_miss);
 	printf("\n");
     }
 

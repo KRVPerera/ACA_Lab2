@@ -8,7 +8,9 @@ set(SOURCE_FILES
         include/framework.h
         src/main.c
         src/predictors.c
-        include/predictors.h)
+        include/predictors.h
+        include/statemachine.h
+        src/statemachine.c)
 
 message("Extracting trace files... Please wait.")
 #execute_process(COMMAND ${CMAKE_COMMAND} -E tar xzvf ${CMAKE_SOURCE_DIR}/traces/traces.tar.gz

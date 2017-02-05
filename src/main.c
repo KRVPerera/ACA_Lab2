@@ -180,7 +180,7 @@ int main(int argc, char **argv) {
             BHT_TwoBit_4096();
             break;
         case '3':
-            BHT_TwoBit_TwoCol_1024();
+            BHT_TwoBit_4Col_1024();
             break;
         case '4':
             assignment_4_your_own(k, n);

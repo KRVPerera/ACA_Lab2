@@ -8,9 +8,9 @@
 
 bool isBranchTaken(enum State sm) {
     bool prediction = false;
-    if ((sm == state11) || (sm == state10)) {
+    if (sm & 0b10) { // (sm == state11) || (sm == state10)
         prediction = true;
-    } else if ((sm == state01) || (sm == state00)) {
+    } else if (sm & 0b01) { // (sm == state01) || (sm == state00)
         prediction = false;
     }
     return prediction;

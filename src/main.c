@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
             BHT_TwoBit_4Col_1024();
             break;
         case '4':
-            assignment_4_your_own(k, n);
+            CustomPredictor(k, n);
             break;
         default:
             usage();

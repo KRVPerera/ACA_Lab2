@@ -229,7 +229,7 @@ void BHT_TwoBit_4Col_1024() {
 }
 
 /* Assignment 4: Change these parameters to your needs */
-void assignment_4_your_own(int k, int n) {
+void CustomPredictor(int k, int n) {
     always_x(false);
 }
 

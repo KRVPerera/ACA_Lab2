@@ -7,6 +7,7 @@
 #include "../include/predictors.h"
 #include "../include/framework.h"
 #include "../include/statemachine.h"
+#include "../include/fourcoltwobitbht.h"
 
 /* Random prediction */
 void random_predictor() {
@@ -169,7 +170,6 @@ void BHT_TwoBit_4096() {
         /* Do a prediction */
         curState = BHT[index];
         prediction = isBranchTaken(curState);
-
         /*
          * Feed the prediction to the state machine, and get the actual
          * result back.
@@ -187,20 +187,9 @@ void BHT_TwoBit_4096() {
 
 /* Implement assignment 4 here */
 void BHT_TwoBit_4Col_1024() {
-    enum State *BHT00 = (enum State *) malloc(1024 * sizeof(enum State));
-    enum State *BHT01 = (enum State *) malloc(1024 * sizeof(enum State));
-    enum State *BHT10 = (enum State *) malloc(1024 * sizeof(enum State));
-    enum State *BHT11 = (enum State *) malloc(1024 * sizeof(enum State));
-    memset(BHT00, state00, 1024);
-    memset(BHT01, state00, 1024);
-    memset(BHT10, state00, 1024);
-    memset(BHT11, state00, 1024);
+    BHT22 * bht22 = init22BHT(2);
 
-    enum State curState = state00;
     bool prediction = false;
-
-    bool pattern[2];
-    enum State *BHT = BHT00;
 
     /* Variable to store the the address of the branch. */
     uint32_t addr = 0;
@@ -222,11 +211,8 @@ void BHT_TwoBit_4Col_1024() {
                    "a state it shouldn't be called!\n");
         }
 
-        int index = addr & 0b1111111111;
-        /* Do a prediction */
-        curState = BHT[index];
-        prediction = isBranchTaken(curState);
-
+        int address = addr & 0b1111111111;
+        prediction = getPrediction(*bht22, address);
         /*
          * Feed the prediction to the state machine, and get the actual
          * result back.
@@ -236,12 +222,10 @@ void BHT_TwoBit_4Col_1024() {
                     " a state it shouldn't be called\n");
         }
 
-        stateChange(&BHT[index], actual);
+        updatePrediction(bht22, address, actual);
+
     }
-    free(BHT00);
-    free(BHT01);
-    free(BHT10);
-    free(BHT11);
+    destroyBHT22(bht22);
 }
 
 /* Assignment 4: Change these parameters to your needs */

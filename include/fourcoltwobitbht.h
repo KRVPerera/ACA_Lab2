@@ -16,12 +16,14 @@ typedef struct BHT22 {
     int bhtTables;
 } BHT22;
 
-BHT22 * init22BHT(int patnSize);
+BHT22 *init22BHT(int patnSize);
+
+BHT22 *init22BHTWithTbleSize(int patnSize, int tableSize);
 
 bool getPrediction(BHT22 bht22, int address);
 
 void updatePrediction(BHT22 *bht22, int address, int actual);
 
-void destroyBHT22(BHT22 * bht22);
+void destroyBHT22(BHT22 *bht22);
 
 #endif //BPANALYSIS_FOURCOLTWOBITBHT_H

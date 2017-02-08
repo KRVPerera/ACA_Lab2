@@ -25,13 +25,28 @@ struct BHT22 * init22BHT(int patnSize) {
     return bht22;
 }
 
+struct BHT22 * init22BHTWithTbleSize(int patnSize, int tableSize) {
+    struct BHT22 *bht22;
+    if(patnSize <= MAX_PATTERN_BIT_SIZE) {
+        bht22 = (BHT22 *) malloc((1) * sizeof(BHT22));
+        bht22->patternBitSize = patnSize;
+        bht22->bhtTables = pow(2,  bht22->patternBitSize);
+        bht22->bhtSize = tableSize;
+        bht22->BHT = (enum State *) malloc((tableSize*bht22->bhtTables) * sizeof(enum State));
+        bht22->pattern = 0;
+    }else{
+        fprintf(stderr, "Invalid pattern bit size");
+    }
+    return bht22;
+}
+
 int getTableIndex(BHT22 bht22) {
     return bht22.pattern;
 }
 
 bool getPrediction(BHT22 bht22, int address) {
     int tableIndex = getTableIndex(bht22);
-    assert(address * tableIndex <= MAX_SIZE);
+    assert(address * tableIndex <= bht22.bhtTables*bht22.bhtSize);
     return bht22.BHT[tableIndex * address];
 }
 

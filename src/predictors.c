@@ -229,8 +229,46 @@ void BHT_TwoBit_4Col_1024() {
 }
 
 /* Assignment 4: Change these parameters to your needs */
-void CustomPredictor(int k, int n) {
-    always_x(false);
+void CustomPredictor() {
+    BHT22 * bht22 = init22BHTWithTbleSize(4, 1024);
+
+    bool prediction = false;
+
+    /* Variable to store the the address of the branch. */
+    uint32_t addr = 0;
+
+    /*
+     * Variable to store the actual branch result
+     * (obtained from the predictor library)
+     */
+    bool actual = false;
+
+    /*
+     * Prediction loop, until tracefile is empty.
+     */
+    while (predictor_getState() != DONE) {
+
+        /* Get the next branch address from the state machine. */
+        if (predictor_getNextBranch(&addr) != 0) {
+            fprintf(stderr, "ERROR: \"predictor_getNextBranch()\" called in "\
+                   "a state it shouldn't be called!\n");
+        }
+
+        int address = addr & 0b1111111111;
+        prediction = getPrediction(*bht22, address);
+        /*
+         * Feed the prediction to the state machine, and get the actual
+         * result back.
+         */
+        if (predictor_predict(prediction, &actual) != 0) {
+            fprintf(stderr, "ERROR: \"predictor_predict()\" called in "\
+                    " a state it shouldn't be called\n");
+        }
+
+        updatePrediction(bht22, address, actual);
+
+    }
+    destroyBHT22(bht22);
 }
 
 /* Bonus: Change these parameters to your needs */

@@ -44,10 +44,11 @@ int getTableIndex(BHT22 bht22) {
     return bht22.pattern;
 }
 
-bool getPrediction(BHT22 bht22, int address) {
+bool getPrediction(BHT22 bht22, unsigned long int address) {
     int tableIndex = getTableIndex(bht22);
-    assert(address * tableIndex <= bht22.bhtTables*bht22.bhtSize);
-    return bht22.BHT[tableIndex * address];
+    int sectionIndex = address & bht22.bhtSize -1;
+    assert(sectionIndex * tableIndex < bht22.bhtTables*bht22.bhtSize);
+    return isBranchTaken(bht22.BHT[tableIndex * sectionIndex]);
 }
 
 void updatePattern(BHT22 * bht22, bool actual) {
@@ -57,7 +58,8 @@ void updatePattern(BHT22 * bht22, bool actual) {
     assert(bht22->pattern >= 0);
 }
 
-void updatePrediction(BHT22 *bht22, int address, int actual) {
+void updatePrediction(BHT22 *bht22, int addr, int actual) {
+    int address = addr & bht22->bhtSize -1;
     if (address < bht22->bhtSize) {
         int tableIndex = getTableIndex(*bht22);
         stateChange(&bht22->BHT[tableIndex * address], actual);

@@ -20,7 +20,7 @@ BHT22 *init22BHT(int patnSize);
 
 BHT22 *init22BHTWithTbleSize(int patnSize, int tableSize);
 
-bool getPrediction(BHT22 bht22, int address);
+bool getPrediction(BHT22 bht22, unsigned long int address);
 
 void updatePrediction(BHT22 *bht22, int address, int actual);
 

@@ -1,13 +1,14 @@
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "../include/predictors.h"
 #include "../include/framework.h"
 #include "../include/statemachine.h"
 #include "../include/fourcoltwobitbht.h"
+
+typedef unsigned int uint32_t;
 
 /* Random prediction */
 void random_predictor() {
@@ -187,7 +188,7 @@ void BHT_TwoBit_4096() {
 
 /* Implement assignment 4 here */
 void BHT_TwoBit_4Col_1024() {
-    BHT22 * bht22 = init22BHT(2);
+    BHT22 *bht22 = init22BHT(2);
 
     bool prediction = false;
 
@@ -211,8 +212,7 @@ void BHT_TwoBit_4Col_1024() {
                    "a state it shouldn't be called!\n");
         }
 
-        int address = addr & 0b1111111111;
-        prediction = getPrediction(*bht22, address);
+        prediction = getPrediction(*bht22, addr);
         /*
          * Feed the prediction to the state machine, and get the actual
          * result back.
@@ -222,7 +222,7 @@ void BHT_TwoBit_4Col_1024() {
                     " a state it shouldn't be called\n");
         }
 
-        updatePrediction(bht22, address, actual);
+        updatePrediction(bht22, addr, actual);
 
     }
     destroyBHT22(bht22);
@@ -230,7 +230,7 @@ void BHT_TwoBit_4Col_1024() {
 
 /* Assignment 4: Change these parameters to your needs */
 void CustomPredictor() {
-    BHT22 * bht22 = init22BHTWithTbleSize(4, 1024);
+    BHT22 *bht22 = init22BHTWithTbleSize(4, 1024);
 
     bool prediction = false;
 

@@ -114,14 +114,14 @@ int main(int argc, char **argv) {
                 prediction_algorithm = '4';
                 predictor_name = "Custom";
                 break;
-//            case '5':
-//                prediction_algorithm = '5';
-//                predictor_name = "Bonus_1";
-//                break;
-//            case '6':
-//                prediction_algorithm = '6';
-//                predictor_name = "Bonus_2";
-//                break;
+            case '5':
+                prediction_algorithm = '5';
+                predictor_name = "Bonus_1";
+                break;
+            case '6':
+                prediction_algorithm = '6';
+                predictor_name = "Bonus_2";
+                break;
 
             /* Prediction options. */
             case 'x':
@@ -184,6 +184,12 @@ int main(int argc, char **argv) {
             break;
         case '4':
             CustomPredictor();
+            break;
+        case '5':
+            bonus_1();
+            break;
+        case '6':
+            bonus_2();
             break;
         default:
             usage();

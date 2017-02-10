@@ -19,7 +19,8 @@ bool isBranchTaken(enum State sm) {
 enum State stateChange(enum State *sm, bool isBranchTaken) {
     enum State nxtState;
     enum State curState = *sm;
-    if (isBranchTaken) {
+
+    if (isBranchTaken == true) {
         if (curState == state00) {
             nxtState = state01;
         } else if ((curState == state10) || (curState == state01) || (curState == state11)) {
@@ -36,7 +37,7 @@ enum State stateChange(enum State *sm, bool isBranchTaken) {
 }
 
 enum State *initStateMachineArray(int size, enum State initState) {
-    enum State *tmp = (enum State *) malloc(4096 * sizeof(enum State));
-    memset(tmp, initState, 4096 * sizeof(enum State));
+    enum State *tmp = (enum State *) malloc(size * sizeof(enum State));
+    memset(tmp, initState, size * sizeof(enum State));
     return tmp;
 }

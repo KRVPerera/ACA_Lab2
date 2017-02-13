@@ -40,16 +40,34 @@ struct BHT22 *init22BHTWithTbleSize(int patnSize, int tableSize) {
     return bht22;
 }
 
+/**
+ * Return the table which the current pattern points to
+ * @param bht22 struct
+ * @return : return the table index
+ */
 int getTableIndex(BHT22 bht22) {
     return bht22.pattern;
 }
 
+/**
+ * Since all the tables are implemented in one big array table index and table size is used to
+ * figure out the starting point, after that base index last bits of the actual address is used to locate
+ * the location in the table area
+ * @param bht22
+ * @param address actual address
+ * @return
+ */
 bool getPrediction(BHT22 bht22, unsigned long int address) {
-    int index = getIndex(bht22, address);
+    int index = getIndex(bht22, address); // gets the absoloute address in large array
     assert(index < bht22.bhtTables * bht22.bhtSize);
     return isBranchTaken(bht22.BHT[index]);
 }
 
+/**
+ * Works as a shift register, add the recent actual value to the end of the pattern variab;e
+ * @param bht22
+ * @param actual most recent branch actual result, taken or not taken
+ */
 void updatePattern(BHT22 *bht22, bool actual) {
     bht22->pattern = bht22->pattern << 1;
     bht22->pattern = bht22->pattern | (actual ? 1 : 0);
@@ -57,6 +75,12 @@ void updatePattern(BHT22 *bht22, bool actual) {
     assert(bht22->pattern >= 0);
 }
 
+/**
+ * Update the result to the algorithm structures after receiving the actual value
+ * @param bht22
+ * @param addr
+ * @param actual
+ */
 void updatePrediction(BHT22 *bht22, int addr, int actual) {
     int address = addr & bht22->bhtSize - 1;
     if (address < bht22->bhtSize) {
@@ -73,6 +97,12 @@ void destroyBHT22(BHT22 *bht22) {
     free(bht22);
 }
 
+/**
+ *
+ * @param bht22
+ * @param address
+ * @return
+ */
 int getIndex(BHT22 bht22, unsigned long address) {
     int tableIndex = getTableIndex(bht22);
     int sectionIndex = address & (bht22.bhtSize - 1);

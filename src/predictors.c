@@ -95,8 +95,9 @@ void always_x(bool p) {
 
 /* Implement assignment 1 here */
 void BHT_Simple_8192() {
-    bool *BHT = (bool *) malloc(8192 * sizeof(bool));
-    memset(BHT, false, 8192);
+    int size = 8192;
+    bool *BHT = (bool *) malloc(size * sizeof(bool));
+    memset(BHT, false, size);
 
     bool prediction = false;
 
@@ -120,7 +121,7 @@ void BHT_Simple_8192() {
                    "a state it shouldn't be called!\n");
         }
 
-        int index = addr & 0b1111111111111;
+        int index = addr & (size - 1);
         /* Do a prediction */
         prediction = BHT[index];
 
@@ -141,8 +142,8 @@ void BHT_Simple_8192() {
 
 /* Implement assignment 2 here */
 void BHT_TwoBit_4096() {
-
-    enum State *BHT = initStateMachineArray(4096, state00);
+    int size = 4096;
+    enum State *BHT = initStateMachineArray(size, state00);
 
     enum State curState = state00;
     bool prediction = false;
@@ -167,7 +168,7 @@ void BHT_TwoBit_4096() {
                    "a state it shouldn't be called!\n");
         }
 
-        int index = addr & 0b111111111111;
+        int index = addr & (size - 1);  // gets last 12 bits
         /* Do a prediction */
         curState = BHT[index];
         prediction = isBranchTaken(curState);
@@ -188,7 +189,7 @@ void BHT_TwoBit_4096() {
 
 /* Implement assignment 3 here */
 void BHT_TwoBit_4Col_1024() {
-//    BHT22 *bht22 = init22BHT(2);
+
     BHT22 *bht22 = init22BHTWithTbleSize(2, 1024);
 
     bool prediction = false;
@@ -280,6 +281,7 @@ void bonus_1() {
 
     /* Variable to store the the address of the branch. */
     uint32_t addr = 0;
+
 
     /*
      * Variable to store the actual branch result

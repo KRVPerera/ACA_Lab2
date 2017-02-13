@@ -26,6 +26,4 @@ void updatePrediction(BHT22 *bht22, int address, int actual);
 
 void destroyBHT22(BHT22 *bht22);
 
-int getIndex(BHT22 bht22, unsigned long address);
-
 #endif //BPANALYSIS_FOURCOLTWOBITBHT_H
